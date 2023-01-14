@@ -33,7 +33,9 @@ require('packer').startup(function(use)
         requires = {
             'hrsh7th/cmp-nvim-lsp',
             'L3MON4D3/LuaSnip',
-            'saadparwaiz1/cmp_luasnip'
+            'saadparwaiz1/cmp_luasnip',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
         },
     }
 
