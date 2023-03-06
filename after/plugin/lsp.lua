@@ -23,15 +23,47 @@ local on_attach = function(client, bufnr)
 end
 
 local servers = {
-    sumneko_lua = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-            diagnostics = {
-                globals = { "vim" },
+    bashls = {},
+    golangci_lint_ls = {
+        settings = {
+            gopls = {
+                gofumpt = true,
+            },
+        },
+        flags = {
+            debounce_text_changes = 150,
+        },
+    },
+    gopls = {
+        settings = {
+            gopls = {
+                gofumpt = true,
+            },
+        },
+        flags = {
+            debounce_text_changes = 150,
+        },
+    },
+    lua_ls = {
+        settings = {
+            Lua = {
+                workspace = { checkThirdParty = false },
+                telemetry = { enable = false },
+                diagnostics = {
+                    globals = { "vim" },
+                },
             },
         },
     },
+    rust_analyzer = {
+        cmd = {
+            "rustup", "run", "stable", "rust-analyzer",
+        },
+    },
+    svelte = {},
+    tailwindcss = {},
+    tsserver = {},
+    vuels = {},
 }
 
 require('neodev').setup()
@@ -55,7 +87,9 @@ mason_lspconfig.setup_handlers {
         require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             on_attach = on_attach,
-            settings = servers[server_name],
+            settings = servers[server_name].settings,
+            flags = servers[server_name].flags,
+            cmd = servers[server_name].cmd,
         }
     end,
 }
