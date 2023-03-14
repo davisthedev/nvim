@@ -73,6 +73,19 @@ require('packer').startup(function(use)
     -- Theme and colors
     use { "catppuccin/nvim", as = "catppuccin" }
 
+    -- Auto close and rename tags
+    use {
+        "windwp/nvim-ts-autotag",
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
+    }
+
+
+    -- Rainbow Brackets
+    use {
+        "mrjones2014/nvim-ts-rainbow",
+    }
 
     -- Experimental
     use('github/copilot.vim')
