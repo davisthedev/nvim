@@ -1,4 +1,6 @@
 local builtin = require("telescope.builtin")
+require('telescope').setup({})
+pcall(require('telescope').load_extension, 'fzf')
 
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, {
     desc = '[S]earch [F]iles'
@@ -26,12 +28,10 @@ vim.keymap.set("n", "<leader><space>", builtin.buffers, {
 })
 
 vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(
-      require('telescope.themes').get_dropdown {
-        winblend = 10,
-        previewer = false,
-      })
-end, { desc = '[/] Fuzzily search in current buffer]' })
-
-pcall(require('telescope').load_extension, 'fzf')
+    -- You can pass additional configuration to telescope to change theme, layout, etc.
+    require('telescope.builtin').current_buffer_fuzzy_find(
+        require('telescope.themes').get_dropdown {
+            winblend = 10,
+            previewer = false,
+        })
+end, { desc = '[/] Fuzzily search in current buffer' })

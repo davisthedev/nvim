@@ -1,3 +1,5 @@
+local lspconfig = require 'lspconfig'
+
 local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
     vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
@@ -9,6 +11,8 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
@@ -21,6 +25,19 @@ local on_attach = function(client, bufnr)
         augroup END
     ]])
 end
+
+
+require('neodev').setup()
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+-- Setup mason so it can manage external tooling
+require('mason').setup()
+
+-- Ensure the servers above are installed
+local mason_lspconfig = require('mason-lspconfig')
 
 local servers = {
     bashls = {},
@@ -64,20 +81,7 @@ local servers = {
     svelte = {},
     tailwindcss = {},
     tsserver = {},
-    vuels = {}
 }
-
-require('neodev').setup()
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Setup mason so it can manage external tooling
-require('mason').setup()
-
--- Ensure the servers above are installed
-local mason_lspconfig = require('mason-lspconfig')
 
 mason_lspconfig.setup {
     ensure_installed = vim.tbl_keys(servers),
@@ -91,6 +95,17 @@ mason_lspconfig.setup_handlers {
             settings = servers[server_name].settings,
             flags = servers[server_name].flags,
             cmd = servers[server_name].cmd,
+        }
+    end,
+    ['vuels'] = function()
+        lspconfig.vuels.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            root_dir = function(fname)
+                local primary = lspconfig.util.find_git_ancestor(fname)
+                local fallback = lspconfig.util.root_pattern("package.json", "vue.config.js")
+                return primary or fallback
+            end,
         }
     end,
 }
