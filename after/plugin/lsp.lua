@@ -5,7 +5,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
     vim.keymap.set("n", "gt", function() vim.lsp.buf.type_definition() end, opts)
     vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
-    vim.keymap.set("n", "gr", "<cmd> Telescope lsp_references<CR>", opts)
+    vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
@@ -17,6 +17,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", opts)
 
     vim.cmd([[
         augroup formatting
