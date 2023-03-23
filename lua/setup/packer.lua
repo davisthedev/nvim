@@ -62,6 +62,13 @@ require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
+  use { 'kyazdani42/nvim-web-devicons', opt = true }
+
+  use {
+    'akinsho/bufferline.nvim', tag = 'v3.*',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+  }
+
   use('tpope/vim-fugitive')
 
   -- Treesitter
@@ -81,6 +88,7 @@ require('packer').startup(function(use)
     end,
   }
 
+  -- Change surround
   use {
     "tpope/vim-surround",
     setup = function()
@@ -89,6 +97,15 @@ require('packer').startup(function(use)
   }
 
   use { "tpope/vim-repeat" }
+
+  -- Change command line and notifications
+  use {
+    "folke/noice.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    }
+  }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')

@@ -5,7 +5,12 @@ require('lualine').setup {
   sections = {
     lualine_a = { 'mode' },
     lualine_b = { 'branch', 'diff' },
-    lualine_c = { 'buffers' },
+    lualine_c = {
+      {
+        'filename',
+        path = 2,
+      }
+    },
     lualine_x = { 'tabs' },
     lualine_y = { 'progress' },
     lualine_z = {

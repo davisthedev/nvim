@@ -80,14 +80,17 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = 'nvim_lua' },
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = "buffer",  keyword_length = 3 },
-    { name = "path" },
+    { name = 'nvim_lua', max_item_count = 5 },
+    { name = 'nvim_lsp', max_item_count = 5 },
+    { name = 'luasnip',  max_item_count = 5 },
+    { name = "buffer",   keyword_length = 3 },
+    { name = "path",     max_item_count = 5 },
   },
   window = {
     documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    },
+    completion = {
       border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
     },
   },
