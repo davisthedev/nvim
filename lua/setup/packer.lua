@@ -43,6 +43,12 @@ require('packer').startup(function(use)
 
   use('folke/zen-mode.nvim')
 
+  -- install without yarn or npm
+  use {
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  }
+
   -- Telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
@@ -104,6 +110,16 @@ require('packer').startup(function(use)
     requires = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
+    }
+  }
+
+  -- AI Overlords
+  use {
+    "jackMort/ChatGPT.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
     }
   }
 
