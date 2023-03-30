@@ -17,12 +17,13 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end, opts)
   vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", opts)
 
   vim.cmd([[
         augroup formatting
             autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+            autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })
         augroup END
     ]])
 end
@@ -113,6 +114,26 @@ mason_lspconfig.setup_handlers {
       end,
     }
   end,
+}
+
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+
+local sources = {
+  formatting.prettierd.with({
+    filetypes = { "svelte", "typescript", "javascript", "vue" }
+  }),
+  formatting.stylua,
+  diagnostics.eslint_d.with({
+    filetypes = { "svelte", "typescript", "javascript", "vue" }
+  })
+}
+
+null_ls.setup {
+  debug = true,
+  sources = sources,
+  -- on_attach = on_attach
 }
 
 require('fidget').setup()

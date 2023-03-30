@@ -39,6 +39,11 @@ require('packer').startup(function(use)
     },
   }
 
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+  }
+
   use('windwp/nvim-autopairs')
 
   use('folke/zen-mode.nvim')
