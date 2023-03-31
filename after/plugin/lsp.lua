@@ -1,5 +1,16 @@
 local lspconfig = require 'lspconfig'
 
+local border = {
+  { "╭", "FloatBoarder" },
+  { "─", "FloatBoarder" },
+  { "╮", "FloatBoarder" },
+  { "│", "FloatBoarder" },
+  { "╯", "FloatBoarder" },
+  { "─", "FloatBoarder" },
+  { "╰", "FloatBoarder" },
+  { "│", "FloatBoarder" },
+}
+
 local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
   vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
@@ -28,7 +39,6 @@ local on_attach = function(client, bufnr)
     ]])
 end
 
-
 require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -47,17 +57,30 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
+vim.diagnostic.config {
+  float = {
+    border = "rounded"
+  },
+}
+
+local handlers = {
+  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
+
 mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
+      handlers = handlers
     }
   end,
   ['golangci_lint_ls'] = function()
     lspconfig.golangci_lint_ls.setup {
       capabilities = capabilities,
       on_attach = on_attach,
+      handlers = handlers,
       settings = {
         gopls = {
           gofumpt = true,
@@ -72,6 +95,7 @@ mason_lspconfig.setup_handlers {
     lspconfig.gopls.setup {
       capabilities = capabilities,
       on_attach = on_attach,
+      handlers = handlers,
       settings = {
         gopls = {
           gofumpt = true,
@@ -86,6 +110,7 @@ mason_lspconfig.setup_handlers {
     lspconfig.lua_ls.setup {
       capabilities = capabilities,
       on_attach = on_attach,
+      handlers = handlers,
       settings = {
         Lua = {
           workspace = { checkThirdParty = false },
@@ -98,8 +123,19 @@ mason_lspconfig.setup_handlers {
     lspconfig.rust_analyzer.setup {
       capabilities = capabilities,
       on_attach = on_attach,
+      handlers = handlers,
       cmd = {
         "rustup", "run", "stable", "rust-analyzer",
+      }
+    }
+  end,
+  ['tsserver'] = function()
+    lspconfig.tsserver.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      handlers = handlers,
+      fileTypes = {
+        "javascript", "typescript", "vue", "svelte", "html",
       }
     }
   end,
@@ -107,6 +143,7 @@ mason_lspconfig.setup_handlers {
     lspconfig.vuels.setup {
       capabilities = capabilities,
       on_attach = on_attach,
+      handlers = handlers,
       root_dir = function(fname)
         local primary = lspconfig.util.find_git_ancestor(fname)
         local fallback = lspconfig.util.root_pattern("package.json", "vue.config.js")
@@ -115,6 +152,7 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
 
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
