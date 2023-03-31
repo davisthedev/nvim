@@ -14,6 +14,9 @@ require('packer').startup(function(use)
   -- LSP Configuration
   use {
     'neovim/nvim-lspconfig',
+    opts = {
+      format = { timeout_ms = 5000 }
+    },
     requires = {
       -- Automatically installs LSPs
       'williamboman/mason.nvim',
@@ -38,6 +41,8 @@ require('packer').startup(function(use)
       'hrsh7th/cmp-path',
     },
   }
+
+  use "rafamadriz/friendly-snippets"
 
   use {
     "jose-elias-alvarez/null-ls.nvim",

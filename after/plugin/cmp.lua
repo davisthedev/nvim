@@ -30,6 +30,8 @@ local kind_icons = {
   TypeParameter = "",
 }
 
+luasnip.config.setup {}
+
 cmp.setup {
   snippet = {
     expand = function(args)
