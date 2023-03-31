@@ -134,9 +134,6 @@ mason_lspconfig.setup_handlers {
       capabilities = capabilities,
       on_attach = on_attach,
       handlers = handlers,
-      fileTypes = {
-        "javascript", "typescript", "vue", "svelte", "html",
-      }
     }
   end,
   ['vuels'] = function()
