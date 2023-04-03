@@ -163,14 +163,16 @@ local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 
 local sources = {
-  formatting.prettier.with({
+  formatting.eslint_d.with({
     filetypes = { "svelte", "typescript", "javascript", "vue" }
   }),
+  formatting.rustfmt,
+  formatting.rustywind,
   formatting.stylua,
-  diagnostics.eslint.with({
+  diagnostics.eslint_d.with({
     filetypes = { "svelte", "typescript", "javascript", "vue" }
   }),
-  code_actions.eslint.with({
+  code_actions.eslint_d.with({
     filetypes = { "svelte", "typescript", "javascript", "vue" }
   })
 }
