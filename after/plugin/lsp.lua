@@ -31,12 +31,12 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end, opts)
   vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", opts)
 
-  vim.cmd([[
-        augroup formatting
-            autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })
-        augroup END
-    ]])
+  --vim.cmd([[
+  --     augroup formatting
+  --        autocmd! * <buffer>
+  --       autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ bufnr = bufnr })
+  --  augroup END
+  -- ]])
 end
 
 require('neodev').setup()
