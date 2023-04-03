@@ -35,14 +35,33 @@ require('packer').startup(function(use)
     'hrsh7th/nvim-cmp',
     requires = {
       'hrsh7th/cmp-nvim-lsp',
-      'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      {
+        'L3MON4D3/LuaSnip',
+        wants = { "friendly-snippets", "vim-snippets" },
+      },
+      "rafamadriz/friendly-snippets",
+      "honza/vim-snippets",
     },
   }
 
-  use "rafamadriz/friendly-snippets"
+  use {
+    'NvChad/nvim-colorizer.lua', -- Preview colors
+    config = function()
+      require('colorizer').setup {
+        filetypes = { '*', '!packer' },
+        user_default_options = {
+          tailwind = 'lsp',
+          names = false,
+          sass = { enable = true, parsers = { css = true } },
+        },
+      }
+    end,
+  }
 
   use {
     "jose-elias-alvarez/null-ls.nvim",

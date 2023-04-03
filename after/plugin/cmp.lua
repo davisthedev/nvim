@@ -31,6 +31,9 @@ local kind_icons = {
 }
 
 luasnip.config.setup {}
+require("luasnip/loaders.from_vscode").lazy_load()
+require("luasnip/loaders.from_snipmate").lazy_load()
+luasnip.filetype_extend("all", { "_" })
 
 cmp.setup {
   snippet = {
@@ -82,11 +85,12 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = 'nvim_lua', max_item_count = 5 },
-    { name = 'nvim_lsp', max_item_count = 5 },
-    { name = 'luasnip',  max_item_count = 5 },
-    { name = "buffer",   keyword_length = 3 },
-    { name = "path",     max_item_count = 5 },
+    { name = 'nvim_lua',               max_item_count = 10 },
+    { name = 'nvim_lsp',               max_item_count = 10 },
+    { name = 'luasnip',                max_item_count = 10 },
+    { name = "buffer",                 keyword_length = 3 },
+    { name = "path",                   max_item_count = 10 },
+    { name = "nvim_lsp_signature_help" },
   },
   window = {
     documentation = {
