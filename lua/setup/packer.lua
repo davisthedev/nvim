@@ -46,6 +46,7 @@ require('packer').startup(function(use)
       },
       "rafamadriz/friendly-snippets",
       "honza/vim-snippets",
+      "ray-x/lsp_signature.nvim",
     },
   }
 

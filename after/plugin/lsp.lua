@@ -1,4 +1,5 @@
 local lspconfig = require 'lspconfig'
+local lsp_signature = require 'lsp_signature'
 
 local border = {
   { "╭", "FloatBoarder" },
@@ -70,24 +71,17 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local handlers = {
-  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-}
-
 mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      handlers = handlers
     }
   end,
   ['golangci_lint_ls'] = function()
     lspconfig.golangci_lint_ls.setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      handlers = handlers,
       settings = {
         gopls = {
           gofumpt = true,
@@ -102,7 +96,6 @@ mason_lspconfig.setup_handlers {
     lspconfig.gopls.setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      handlers = handlers,
       settings = {
         gopls = {
           gofumpt = true,
@@ -117,11 +110,13 @@ mason_lspconfig.setup_handlers {
     lspconfig.lua_ls.setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      handlers = handlers,
       settings = {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
+          diagnostics = {
+            globals = { "vim" }
+          },
         },
       },
     }
@@ -130,7 +125,6 @@ mason_lspconfig.setup_handlers {
     lspconfig.rust_analyzer.setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      handlers = handlers,
       cmd = {
         "rustup", "run", "stable", "rust-analyzer",
       }
@@ -140,14 +134,12 @@ mason_lspconfig.setup_handlers {
     lspconfig.tsserver.setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      handlers = handlers,
     }
   end,
   ['vuels'] = function()
     lspconfig.vuels.setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      handlers = handlers,
       root_dir = function(fname)
         local primary = lspconfig.util.find_git_ancestor(fname)
         local fallback = lspconfig.util.root_pattern("package.json", "vue.config.js")
