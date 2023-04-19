@@ -20,6 +20,26 @@ vim.keymap.set("n", "<leader>svwm", function()
   require("vim-with-me").StopVimWithMe()
 end)
 
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+
+vim.keymap.set("i", "<C-h>", "<Left>")
+vim.keymap.set("i", "<C-l>", "<Right>")
+vim.keymap.set("i", "<C-j>", "<Down>")
+vim.keymap.set("i", "<C-k>", "<Up>")
+
+vim.keymap.set("n", "<leader>ws", "<C-w>s")
+vim.keymap.set("n", "<leader>wv", "<C-w>v")
+vim.keymap.set("n", "<leader>ww", "<C-w>w")
+vim.keymap.set("n", "<leader>wq", "<C-w>q")
+vim.keymap.set("n", "<leader>w=", "<C-w>=")
+vim.keymap.set("n", "<leader>wH", "<C-w>H")
+vim.keymap.set("n", "<leader>wL", "<C-w>L")
+vim.keymap.set("n", "<leader>wJ", "<C-w>J")
+vim.keymap.set("n", "<leader>wK", "<C-w>K")
+
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 

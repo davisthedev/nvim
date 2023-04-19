@@ -15,10 +15,13 @@ local border = {
 local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
   vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-  vim.keymap.set("n", "gt", function() vim.lsp.buf.type_definition() end, opts)
+  vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
+  vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", opts)
   vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
   vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+  vim.keymap.set("n", "<leader>ls", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
   vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
@@ -28,7 +31,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
   vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end, opts)
   vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", opts)
 
@@ -64,6 +66,19 @@ vim.diagnostic.config {
     border = "rounded"
   },
 }
+
+--vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+--  vim.lsp.handlers.signature_help, {
+--    border = 'rounded',
+--    close_events = { "CursorMoved", "BufHidden", "InsertCharPre" },
+--  }
+--)
+--
+--vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+--  vim.lsp.handlers.hover, {
+--    border = 'rounded',
+--  }
+--)
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do

@@ -1,14 +1,18 @@
-local lsp_signature = require 'lsp_signature'
-
-lsp_signature.setup {
-  bind = true,
-  fix_pos = true,
-  floating_window_above_cur_line = true,
-  floating_window_off_y = 0,
-  handler_opts = {
-    border = "rounded"
-  },
-  hi_parameter = "LspSignatureActiveParameter",
-  hint_prefix = " ",
-  noice = true,
-}
+-- local lsp_signature = require 'lsp_signature'
+--
+-- lsp_signature.setup {
+--   bind = true,
+--   fix_pos = true,
+--   floating_window = true,
+--   floating_window_above_cur_line = false,
+--   floating_window_off_x = 1,
+--   floating_window_off_y = 1,
+--   handler_opts = {
+--     border = "rounded"
+--   },
+--   hi_parameter = "LspSignatureActiveParameter",
+--   hint_prefix = " ",
+--   max_height = 12,
+--   max_width = 100,
+--   noice = true,
+-- }
