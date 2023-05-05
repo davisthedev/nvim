@@ -50,6 +50,21 @@ require('packer').startup(function(use)
     },
   }
 
+  -- Nvim DAP
+  use { 'mfussenegger/nvim-dap' }
+  use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
+  use { 'theHamsta/nvim-dap-virtual-text', requires = { 'mfussenegger/nvim-dap' } }
+  use { 'nvim-telescope/telescope-dap.nvim', requires = { 'mfussenegger/nvim-dap' } }
+  use { "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } }
+  use {
+    "microsoft/vscode-js-debug",
+    opt = true,
+    run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+    requires = { "mxsdev/nvim-dap-vscode-js" }
+  }
+  use { 'leoluz/nvim-dap-go', requires = { 'mfussenegger/nvim-dap' } }
+  use { "jbyuki/one-small-step-for-vimkind", requires = { "mfussenegger/nvim-dap" } }
+
   use {
     'NvChad/nvim-colorizer.lua', -- Preview colors
     config = function()
