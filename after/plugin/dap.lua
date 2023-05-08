@@ -3,6 +3,8 @@
 local ok, dap = pcall(require, "dap")
 if not ok then return end
 
+vim.g.dap_virtual_text = true
+
 vim.keymap.set("n", "<leader>dc", ":lua require'dap'.continue()<CR>")
 vim.keymap.set("n", "<leader>ds", ":lua require'dap'.step_over()<CR>")
 vim.keymap.set("n", "<leader>di", ":lua require'dap'.step_into()<CR>")
@@ -19,7 +21,7 @@ vim.keymap.set("n", "<leader>dt", ":lua require'dap-go'.debug_test()<CR>")
 vim.api.nvim_set_keymap('n', '<F5>', [[:lua require"osv".launch({port = 8086})<CR>]], { noremap = true })
 
 dap.configurations.lua = {
-    {
+  {
     type = 'nlua',
     request = 'attach',
     name = "Attach to running Neovim instance",
@@ -44,8 +46,6 @@ require("dap-vscode-js").setup({
   -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
 })
 
-
-
 local dapui = require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
@@ -55,4 +55,44 @@ dap.listeners.before.event_terminated["dapui_config"] = function()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
+end
+
+dap.configurations.vue = {
+  {
+    type = "pwa-chrome",
+    request = "launch",
+    name = "Launch file",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+    sourceMaps = true,
+    skipFiles = { "<node_internals>/**", "node_modules/**" },
+  },
+  {
+    type = "pwa-chrome",
+    request = "attach",
+    name = "Attach",
+    processId = require 'dap.utils'.pick_process,
+    cwd = "${workspaceFolder}",
+  }
+}
+
+for _, language in ipairs({ "typescript", "javascript" }) do
+  require("dap").configurations[language] = {
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch file",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,
+      skipFiles = { "<node_internals>/**", "node_modules/**" },
+    },
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach",
+      processId = require 'dap.utils'.pick_process,
+      cwd = "${workspaceFolder}",
+    }
+  }
 end
