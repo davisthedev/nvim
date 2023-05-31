@@ -1,3 +1,14 @@
+local env_home = "HOME"
+local env_var = os.getenv(env_home)
+local undodir = ""
+
+if env_var ~= nil then
+  undodir = env_var .. "/.vim/undodir"
+else
+  undodir = "C:/Users/Davis Sanders/.vim/undodir"
+end
+
+
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
@@ -14,7 +25,7 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = undodir
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false
