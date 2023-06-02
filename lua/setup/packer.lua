@@ -53,6 +53,7 @@ require('packer').startup(function(use)
   -- Nvim DAP
   use { 'mfussenegger/nvim-dap' }
   use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
+  use { 'jay-babu/mason-nvim-dap.nvim', requires = { 'mfussenegger/nvim-dap' } }
   use { 'theHamsta/nvim-dap-virtual-text', requires = { 'mfussenegger/nvim-dap' } }
   use { 'nvim-telescope/telescope-dap.nvim', requires = { 'mfussenegger/nvim-dap' } }
   use { "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } }

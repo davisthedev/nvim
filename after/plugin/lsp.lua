@@ -53,12 +53,38 @@ require('mason').setup()
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require('mason-lspconfig')
+local mason_dap = require('mason-nvim-dap')
 
-local servers = {}
+local servers = {
+  "bashls",
+  "clangd",
+  "golangci_lint_ls",
+  "gopls",
+  "lua_ls",
+  "rust_analyzer",
+  "svelte",
+  "tailwindcss",
+  "tsserver",
+  "vuels"
+}
+
+local dap_servers = {
+  "delve",
+  "eslint_d",
+  "go-debug-adapter",
+  "gofumpt",
+  "golangci-lint",
+  "js-debug-adapter",
+  "prettierd",
+  "rustfmt",
+  "rustywind",
+  "stylua",
+}
 
 mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
+  ensure_installed = servers
 }
+
 
 vim.diagnostic.config {
   virtual_text = false,
@@ -162,6 +188,15 @@ mason_lspconfig.setup_handlers {
       end,
     }
   end,
+}
+
+mason_dap.setup {
+  ensure_installed = dap_servers,
+  handlers = {
+    function(config)
+      mason_dap.default_setup(config)
+    end,
+  }
 }
 
 local null_ls = require("null-ls")
