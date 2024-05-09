@@ -64,6 +64,29 @@ return {
                         }
                     }
                 end,
+
+                ["tsserver"] = function()
+                    local lspconfig = require("lspconfig")
+                    local root_dir = lspconfig.util.root_pattern(".git")
+                    local mason_registry = require("mason-registry")
+                    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+                    '/node_modules/@vue/language-server'
+                    lspconfig.tsserver.setup {
+                        capabilities = capabilities,
+                        init_options = {
+                            plugins = {
+                                {
+                                    name = "@vue/typescript-plugin",
+                                    location = vue_language_server_path,
+                                    languages = { "vue" },
+                                }
+                            }
+                        },
+                        filetypes = { "javascript", "typescript", "vue" },
+                        root_dir = root_dir
+                    }
+                    lspconfig.volar.setup {}
+                end,
             }
         })
 
@@ -111,7 +134,7 @@ return {
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
-                { name = 'path', keyword_length = 3 },
+                { name = 'path',    keyword_length = 3 },
             }, {
                 { name = 'buffer', keyword_length = 3 },
             }),
