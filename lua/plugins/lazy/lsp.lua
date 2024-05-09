@@ -40,7 +40,7 @@ return {
                 "sqlls",
                 "svelte",
                 "tailwindcss",
-                "volar",
+                "vuels",
                 "yamlls",
             },
             handlers = {
@@ -75,17 +75,20 @@ return {
                         capabilities = capabilities,
                         init_options = {
                             plugins = {
-                                {
-                                    name = "@vue/typescript-plugin",
-                                    location = vue_language_server_path,
-                                    languages = { "vue" },
-                                }
+                                --{
+                                --    name = "@vue/typescript-plugin",
+                                --    location = vue_language_server_path,
+                                --    languages = { "javascript", "typescript", "vue" },
+                                --}
                             }
                         },
                         filetypes = { "javascript", "typescript", "vue" },
+                    }
+                    lspconfig.vuels.setup {
+                        capabilities = capabilities,
+                        filetypes = { "javascript", "typescript", "vue" },
                         root_dir = root_dir
                     }
-                    lspconfig.volar.setup {}
                 end,
             }
         })
