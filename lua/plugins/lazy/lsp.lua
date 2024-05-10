@@ -40,7 +40,7 @@ return {
                 "sqlls",
                 "svelte",
                 "tailwindcss",
-                "vuels",
+                "volar",
                 "yamlls",
             },
             handlers = {
@@ -67,7 +67,7 @@ return {
 
                 ["tsserver"] = function()
                     local lspconfig = require("lspconfig")
-                    local root_dir = lspconfig.util.root_pattern(".git")
+                    local root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")
                     local mason_registry = require("mason-registry")
                     local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
                     '/node_modules/@vue/language-server'
@@ -75,19 +75,31 @@ return {
                         capabilities = capabilities,
                         init_options = {
                             plugins = {
-                                --{
-                                --    name = "@vue/typescript-plugin",
-                                --    location = vue_language_server_path,
-                                --    languages = { "javascript", "typescript", "vue" },
-                                --}
+                                {
+                                    name = "@vue/typescript-plugin",
+                                    location = vue_language_server_path,
+                                    languages = { "javascript", "typescript", "vue" },
+                                }
                             }
                         },
-                        filetypes = { "javascript", "typescript", "vue" },
+                        filetypes = { "javascript", "typescript", "vue", "svelte" },
                     }
-                    lspconfig.vuels.setup {
+                end,
+
+                ["volar"] = function()
+                    local lspconfig = require("lspconfig")
+                    local root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")
+                    lspconfig.volar.setup{
                         capabilities = capabilities,
-                        filetypes = { "javascript", "typescript", "vue" },
+                        filetypes = { "vue" },
                         root_dir = root_dir
+                    }
+                end,
+
+                ["svelte"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.svelte.setup{
+                        capabilities = capabilities
                     }
                 end,
             }

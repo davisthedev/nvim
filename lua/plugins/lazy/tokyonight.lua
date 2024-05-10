@@ -6,13 +6,13 @@ return {
         config = function()
             require('tokyonight').setup({
                 style = "moon",
-                transparent = true,
+                transparent = false,
                 terminal_colors = true,
                 styles = {
                     comments = { italic = false },
                     keywords = { italic = false },
-                    sidebars = "transparent",
-                    floats = "transparent",
+                    -- sidebars = "transparent",
+                    -- floats = "transparent",
                 },
             })
         end,
