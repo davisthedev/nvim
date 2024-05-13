@@ -67,3 +67,6 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+-- Custom functions
+vim.keymap.set('n', '<leader>cl', '<cmd>lua require("config.functions").logVariable()<cr>', { desc = '[C]onsole [L]og' })
