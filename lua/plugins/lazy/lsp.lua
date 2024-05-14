@@ -10,12 +10,11 @@ return {
         "hrsh7th/nvim-cmp",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        "j-hui/fidget.nvim",
-        "folke/neodev.nvim",
     },
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
+        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         local capabilities = vim.tbl_deep_extend(
             "force",
             {},
@@ -172,6 +171,11 @@ return {
                 ghost_text = true
             },
         })
+
+        cmp.event:on(
+            'confirm_done',
+            cmp_autopairs.on_confirm_done()
+        )
 
         vim.diagnostic.config({
             -- update_in_insert = true,
