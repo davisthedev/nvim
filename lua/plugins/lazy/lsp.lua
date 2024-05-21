@@ -69,7 +69,7 @@ return {
                     local root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")
                     local mason_registry = require("mason-registry")
                     local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-                    '/node_modules/@vue/language-server'
+                        '/node_modules/@vue/language-server'
                     lspconfig.tsserver.setup {
                         capabilities = capabilities,
                         init_options = {
@@ -88,7 +88,7 @@ return {
                 ["volar"] = function()
                     local lspconfig = require("lspconfig")
                     local root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")
-                    lspconfig.volar.setup{
+                    lspconfig.volar.setup {
                         capabilities = capabilities,
                         filetypes = { "vue" },
                         root_dir = root_dir
@@ -97,12 +97,19 @@ return {
 
                 ["svelte"] = function()
                     local lspconfig = require("lspconfig")
-                    lspconfig.svelte.setup{
+                    lspconfig.svelte.setup {
                         capabilities = capabilities
                     }
                 end,
             }
         })
+
+
+        local lspconfig = require("lspconfig")
+        lspconfig.nushell.setup {
+            capabilities = capabilities,
+            cmd = { "nu", "--lsp" }
+        }
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
         local kind_icons = {
