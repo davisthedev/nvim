@@ -29,5 +29,6 @@
   "template-string.nvim": { "branch": "main", "commit": "419bfb2e4d5f0e6ddd0d4435f85b69da0d88d524" },
   "tokyonight.nvim": { "branch": "main", "commit": "6c30395146c246055ac3cea32d39d6b9876a1dcc" },
   "tree-sitter-nu": { "branch": "main", "commit": "0bb9a602d9bc94b66fab96ce51d46a5a227ab76c" },
+  "undotree": { "branch": "master", "commit": "56c684a805fe948936cda0d1b19505b84ad7e065" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" }
 }
