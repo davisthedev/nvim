@@ -100,7 +100,7 @@ vim.api.nvim_create_autocmd('LspDetach', {
   end,
 })
 
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*",
   command = "set fileformat=unix"
 })
