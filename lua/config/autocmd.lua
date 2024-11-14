@@ -99,3 +99,8 @@ vim.api.nvim_create_autocmd('LspDetach', {
     vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event.buf }
   end,
 })
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "*",
+  command = "set fileformat=unix"
+})
