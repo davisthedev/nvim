@@ -34,7 +34,7 @@ return {
         "cssls",
         "htmx",
         "jsonls",
-        "tsserver",
+        "typescript-language-server",
         "powershell_es",
         "sqlls",
         "svelte",
