@@ -64,13 +64,13 @@ return {
           }
         end,
 
-        ["tsserver"] = function()
+        ["ts_ls"] = function()
           local lspconfig = require("lspconfig")
           local root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")
           local mason_registry = require("mason-registry")
           local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
               '/node_modules/@vue/language-server'
-          lspconfig.tsserver.setup {
+          lspconfig.ts_ls.setup {
             capabilities = capabilities,
             init_options = {
               plugins = {
