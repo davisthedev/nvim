@@ -19,7 +19,12 @@ return {
       "force",
       {},
       vim.lsp.protocol.make_client_capabilities(),
-      cmp_lsp.default_capabilities())
+      cmp_lsp.default_capabilities()
+    )
+    capabilities.textDocument.semanticTokens = {
+      dynamicRegistration = false,
+      tokenTypes = true,
+    }
 
     require("fidget").setup({})
     require("mason").setup()
@@ -49,6 +54,15 @@ return {
           }
         end,
 
+        ["clangd"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.clangd.setup {
+            capabilities = capabilities,
+            cmd = { "clangd", "--background-index", "--suggest-missing-includes" },
+            offsetEncoding = { "utf-8" },
+          }
+        end,
+
         ["lua_ls"] = function()
           local lspconfig = require("lspconfig")
           lspconfig.lua_ls.setup {
@@ -61,6 +75,29 @@ return {
                 }
               }
             }
+          }
+        end,
+
+        ["rust_analyzer"] = function()
+          local rt = require("rust-tools")
+          rt.setup {
+            server = {
+              capabilities = capabilities,
+              on_attach = function(_, bufnr)
+                -- Keymaps for Rust
+                local opts = { noremap = true, silent = true }
+                vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>ca", "<cmd>RustCodeAction<CR>", opts)
+                vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rr", "<cmd>RustRunnables<CR>", opts)
+              end,
+            },
+          }
+        end,
+
+
+        ["svelte"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.svelte.setup {
+            capabilities = capabilities
           }
         end,
 
@@ -95,10 +132,10 @@ return {
           }
         end,
 
-        ["svelte"] = function()
+        ["zls"] = function()
           local lspconfig = require("lspconfig")
-          lspconfig.svelte.setup {
-            capabilities = capabilities
+          lspconfig.zls.setup {
+            capabilities = capabilities,
           }
         end,
       }

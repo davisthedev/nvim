@@ -10,9 +10,9 @@ return {
 
             configs.setup({
                 ensure_installed = {
-                    "c", "lua", "vim", "vimdoc", "javascript", "html",
+                    "c", "cpp", "lua", "vim", "vimdoc", "javascript", "html",
                     "json", "typescript", "css", "yaml", "svelte", "vue",
-                    "bash", "rust", "go", "markdown"
+                    "bash", "rust", "go", "markdown", "zig"
                 },
                 sync_install = false,
                 auto_install = true,
