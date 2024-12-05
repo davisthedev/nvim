@@ -10,7 +10,6 @@ return {
     "hrsh7th/nvim-cmp",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
-    "mrcjkb/rustaceanvim",
   },
   config = function()
     local cmp = require('cmp')
@@ -78,36 +77,6 @@ return {
             }
           }
         end,
-
-        ["rust_analyzer"] = function()
-          vim.g.rustaceanvim = {
-            tools = {
-              inlay_hints = true,
-              keymaps = {
-                rust_code_action = "<Leader>ca",
-                rust_runnables = "<Leader>rr",
-              },
-            },
-            server = {
-              capabilities = capabilities,
-              settings = {
-                ["rust-analyzer"] = {
-                  cargo = {
-                    allFeatures = true,
-                  },
-                  checkOnSave = {
-                    command = "clippy",
-                  },
-                },
-              },
-              on_attach = function(_, bufnr)
-                local opts = { noremap = true, silent = true }
-                vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-              end,
-            },
-          }
-        end
-
 
 
         ["svelte"] = function()
