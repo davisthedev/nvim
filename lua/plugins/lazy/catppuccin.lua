@@ -7,7 +7,7 @@ return {
       require("catppuccin").setup()
     end,
     init = function()
-      vim.cmd [[colorscheme catppuccin-mocha]]
+      vim.cmd [[colorscheme catppuccin-macchiato]]
     end,
   }
 }
