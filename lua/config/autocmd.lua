@@ -9,7 +9,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end
 })
 
-
 vim.api.nvim_create_autocmd({ "BufWritePre", "BufNewFile" }, {
   group = vim.api.nvim_create_augroup('set-fileformat-unix', { clear = true }),
   pattern = "*",
@@ -35,6 +34,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
     end
   end
+})
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('term-open', { clear = true }),
+  callback = function()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  end,
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {

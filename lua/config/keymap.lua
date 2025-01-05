@@ -57,7 +57,7 @@ vim.keymap.set("i", "jk", "<Esc><right>")
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Define key mappings for running LSP format command and moving through quickfix and location lists.
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+-- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
@@ -65,6 +65,8 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Define a key mapping for performing a case-insensitive search and replace.
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+vim.keymap.set("t", "<ESC><ESC>", "<C-\\><C-n>")
 
 -- Define a key mapping to source the current file.
 vim.keymap.set("n", "<leader><leader>", function()
