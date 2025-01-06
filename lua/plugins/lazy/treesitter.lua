@@ -12,7 +12,7 @@ return {
         ensure_installed = {
           "c", "cpp", "lua", "vim", "vimdoc", "javascript", "html",
           "json", "typescript", "css", "yaml", "svelte", "vue",
-          "bash", "rust", "go", "markdown", "zig"
+          "bash", "rust", "go", "markdown", "zig", "jsdoc"
         },
         sync_install = false,
         auto_install = true,

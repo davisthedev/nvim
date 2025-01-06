@@ -46,11 +46,21 @@ return {
       return buffer_dir
     end
 
+    local actions = require("telescope.actions")
+local open_with_trouble = require("trouble.sources.telescope").open
+
+-- Use this to add more results without clearing the trouble list
+local add_to_trouble = require("trouble.sources.telescope").add
+
     require('telescope').setup({
       defaults = {
         cwd = find_project_root,
         find_command = { 'rg', '--files', '--hidden', '--follow', '--no-ignore', '--glob', '!.git/*' },
-        file_ignore_patterns = { "node_modules", ".git" }
+        file_ignore_patterns = { "node_modules", ".git" },
+        mappings = {
+          i = { ["<c-t>"] = open_with_trouble },
+          n = { ["<c-t>"] = open_with_trouble },
+        },
       },
       extensions = {
         ['ui-select'] = {
