@@ -17,13 +17,13 @@ vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 --
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = 'Split window vertically' })
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<leader>wh', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<leader>wl', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<leader>wj', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<leader>wk', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Define key mappings for normal mode to execute Ex commands.
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>ew", vim.cmd.Ex)
 
 -- Define key mappings for visual mode to move lines down and up.
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
